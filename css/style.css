@@ -1,0 +1,52 @@
+.card__border {
+    border: 1px solid rgba(61, 61, 61, 0.579);
+    padding: 20px;
+    border-radius: 4px;
+    margin: 20px;
+    max-width: 220px;
+}
+
+.card__border img {
+    max-width: 200px;
+}
+
+.cart__icon {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    content: " ";
+    background-color: red;
+    border-radius: 100%;
+    width: 15px;
+    height: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+}
+
+.cart__input {
+    min-width: 350px;
+    background: black;
+    opacity: 0.8;
+    color: white;
+}
+
+.cart__input input {
+    max-width: 60px;
+    max-height: 30px;
+    margin: 5px 0;
+}
+
+.cart__input:focus {
+    outline: none;
+}
+
+.precio {
+    display: flex;
+    justify-content: start;
+}
+
+.playstation {
+    margin-top: 42px;
+}
