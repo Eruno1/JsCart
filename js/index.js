@@ -39,6 +39,7 @@ const buyButton = document.getElementById("contenedorProductos")
 buyButton.addEventListener("click", (e) => {
     addCart(e)
 })
+
 const addCart = ((e) => {
     if (e.target.classList.contains("btn-comprar")) {
         
@@ -91,3 +92,13 @@ const setCarrito = (prod) => {
     actualizarTotal()
 }
 
+const deleteButton = document.getElementById("deleteButton")
+const deleteProducts = (e) => {
+    e.preventDefault()
+    prodCarrito = []
+    const listaProductos = document.getElementById("listaCarrito")
+    listaProductos.innerHTML = ""
+    actualizarTotal()
+    actualizarCantCarrito()
+} 
+deleteButton.addEventListener("click", deleteProducts)
