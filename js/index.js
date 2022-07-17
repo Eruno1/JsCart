@@ -3,7 +3,6 @@ let cantCarrito = document.getElementById("cartQty")
 let totalCarrito = document.getElementById("cartTotal")
 let contenedorProductos = document.getElementById("contenedorProductos")
 let listaCarrito = document.getElementById("listaCarrito")
-console.log(listaCarrito)
 
 productosDisponibles()
 
@@ -24,7 +23,7 @@ function productosDisponibles() {
                         
         div2.append(div)                
         contenedorProductos.appendChild(div2)    
-        console.log(prod)            
+        // console.log(prod)            
     } )
 }
 
@@ -42,7 +41,6 @@ buyButton.addEventListener("click", (e) => {
     addCart(e)
 })
 const addCart = ((e) => {
-    console.log(e.target.classList.contains("btn-comprar"))
     if (e.target.classList.contains("btn-comprar")) {
         
         setCarrito(e.target.parentElement)
@@ -66,8 +64,28 @@ const setCarrito = (prod) => {
         cantidad: 1
     }
 
-    console.log(productos)
+    let bandera = true
+    if (prodCarrito.length > 0) {
+        prodCarrito.forEach((prodEnCarrito) => {
+            if (prodEnCarrito.nombre === productos.nombre) {
+                prodEnCarrito.cantidad ++
+                bandera = true
+                console.log("entre al if")
+            }  else {
+                bandera = false
+            }
+        })
+    } else {
+        prodCarrito.push(productos)
+    }
+    console.log(bandera)
+
+    if (bandera == false) {
     prodCarrito.push(productos)
+    bandera = true
+    console.log("bandera")
+    }
+
     console.log(prodCarrito)
     actualizarCantCarrito()
     productosCarrito()
