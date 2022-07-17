@@ -47,6 +47,17 @@
     justify-content: start;
 }
 
-.playstation {
-    margin-top: 42px;
+
+.containerimg {
+    max-width: 178px;
+    max-height: 178px;
+    overflow: hidden;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.containerimg img {
+    min-width: 178px;
+    min-height: 178px;
+    object-fit: contain;
 }

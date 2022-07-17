@@ -1,92 +1,54 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Carrito de compras</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
-    <link rel="stylesheet" href="./css/style.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-  </head>
-  <body>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Carrito de compras</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+        <link rel="stylesheet" href="./css/style.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link rel="icon" type="image/x-icon" href="./assets/favicon.ico">
+    </head>
+    <body>
     <!-- Navbar -->
 
     <!-- As a heading -->
-    <nav class="navbar bg-light">
-      <div class="container-fluid dropstart">
-        <span class="navbar-brand mb-0 h1">Mi tienda</span>
+        <nav class="navbar bg-light">
+            <div class="container-fluid dropstart">
+                <span class="navbar-brand mb-0 h1">Mi tienda</span>
 
-        <div class="dropdown">
-          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-            <span class="cart__icon"> 0 </span>
-            <i class="fa-solid fa-cart-shopping"></i>
-          </button>
-          <ul class="dropdown-menu cart__input" aria-labelledby="dropdownMenuButton1">
-            <div class='lista-productos'>
+                <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                    <span class="cart__icon" id="cartQty"> 0 </span>
+                    <i class="fa-solid fa-cart-shopping"></i>
+                </button>
+                <ul class="dropdown-menu cart__input" aria-labelledby="dropdownMenuButton1">
+                    <div class='lista-productos' id="listaCarrito">
+                        <!-- <li class="px-2 d-flex justify-content-between align-items-start item" ">${titulo} <div class='precio'>$${precio}</li> -->
+                    </div>
+                    <div class="p-2 text-white border-top mt-2 precio-total" id="cartTotal">Total: $0</div>
+                    <button class="btn btn-danger btn-borrar-carrito"><i class="fas fa-trash"></i></button>
+                </ul>
+                </div>
 
             </div>
-            <div class="p-2 text-white border-top mt-2 precio-total">Total: $0</div>
-            <button class="btn btn-danger btn-borrar-carrito"><i class="fas fa-trash"></i></button>
-          </ul>
-        </div>
-
-      </div>
-    </nav>
-
-    <div class="container text-center">
-      <h1>Productos</h1>
-
-      <!-- Lista de productos -->
-
-        <div class="row d-flex justify-content-center">
-            <div class="col-md-3 card__border">
-                <img src="./assets/play5.jpg" class="card-img-top" alt="PS5">
-                <div class="card-body">
-                    <h5 class="card-title playstation">PlayStation 5</h5>
-                    <p class="card-text">$ 100.000</p>
-                    <button class="btn btn-primary btn-comprar">Comprar</button>
+        </nav>
+        <h1 class="d-flex justify-content-center">Productos</h1>
+        <div class="container text-center" id="contenedorProductos"></div>
+        <!-- <section>
+            <div class="container">
+                <div class="container text-center">
+                    <button class="btn btn-primary mt-5"  id="xD">Agregar producto</button>
+                </div>
+                <div class="container text-center">
+                    <button class="btn btn-primary mt-5" onclick= verCarrito()>Ver carrito en consola</button>
+                </div>
             </div>
-
-        </div>
-  
-        <div class="col-md-3 card__border">
-            <img src="./assets/pelotafutbol.jpg" class="card-img-top" alt="Pelota de futbol">
-            <div class="card-body">
-                <h5 class="card-title">Pelota de Futbol</h5>
-                <p class="card-text">$ 1500</p>
-                <button class="btn btn-primary btn-comprar">Comprar</button>
-            </div>
-        </div>
-  
-        <div class="col-md-3 card__border">
-            <img src="./assets/paletapadel.jpg" class="card-img-top" alt="Paleta de padel">
-            <div class="card-body">
-                <h5 class="card-title">Paleta de padel</h5>
-                <p class="card-text">$ 45.000</p>
-                <button class="btn btn-primary btn-comprar">Comprar</button>
-            </div>
-        </div>
-  
-        <div class="col-md-3 card__border">
-            <img src="./assets/switch.jpg" class="card-img-top" alt="Switch">
-            <div class="card-body">
-                <h5 class="card-title">Nintendo Switch</h5>
-                <p class="card-text">$ 56.000</p>
-                <button class="btn btn-primary btn-comprar">Comprar</button>
-            </div>
-        </div>
-    </div>
-
-    <div class="container text-center">
-        <button class="btn btn-primary btn-comprar mt-5" onclick= agregarProducto()>Agregar producto</button>
-    </div>
-    <div class="container text-center">
-        <button class="btn btn-primary btn-comprar mt-5" onclick= verCarrito()>Ver carrito en consola</button>
-    </div>
-    <div class="container text-center">
-        <button class="btn btn-primary btn-comprar mt-5" onclick= pagarTotal()>¿Cuanto debo pagar?</button>
-    </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
-    <script src="./js/index.js"></script>
-  </body>
+        </section> -->
+   
+      
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+        <script src="./js/products.js"></script>
+        <script src="./js/index.js"></script>
+    </body>
 </html>
