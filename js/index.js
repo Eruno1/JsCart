@@ -23,12 +23,11 @@ function productosDisponibles() {
                         
         div2.append(div)                
         contenedorProductos.appendChild(div2)    
-        // console.log(prod)            
     } )
 }
 
 function actualizarTotal() {
-    let total = prodCarrito.reduce((acc, el) => acc + el.precio, 0)
+    let total = prodCarrito.reduce((acc, el) => acc + el.precio * el.cantidad, 0)
     totalCarrito.textContent = `Total: $${total}`
 }
 
@@ -52,7 +51,7 @@ function productosCarrito() {
     listaCarrito.innerHTML = ''
     prodCarrito.forEach((product) => {
         let contenido = document.createElement('div')
-        contenido.innerHTML = `<li class="px-2 d-flex justify-content-between align-items-start item" id="listaCarrito">${product.nombre} <div class='precio'>${product.precioString}</li>`
+        contenido.innerHTML = `<li class="px-2 d-flex justify-content-between align-items-start item" id="listaCarrito"><div class="nameCarrito">${product.nombre}</div> <div class="cantidad"> ${product.cantidad} </div> <div class='precio'>${product.precioString}</div></li>`
         listaCarrito.append(contenido)    
     })
 }
@@ -64,26 +63,26 @@ const setCarrito = (prod) => {
         cantidad: 1
     }
 
-    let bandera = true
+    let prodYaEnCarrito = true
+
     if (prodCarrito.length > 0) {
-        prodCarrito.forEach((prodEnCarrito) => {
+        for (let prodEnCarrito of prodCarrito){
             if (prodEnCarrito.nombre === productos.nombre) {
-                prodEnCarrito.cantidad ++
-                bandera = true
                 console.log("entre al if")
-            }  else {
-                bandera = false
+                prodEnCarrito.cantidad ++
+                prodYaEnCarrito = true
+                break
             }
-        })
+            prodYaEnCarrito = false
+        }
     } else {
         prodCarrito.push(productos)
     }
-    console.log(bandera)
 
-    if (bandera == false) {
-    prodCarrito.push(productos)
-    bandera = true
-    console.log("bandera")
+    if (!prodYaEnCarrito) {
+        prodCarrito.push(productos)
+        prodYaEnCarrito = true
+        console.log("bandera")
     }
 
     console.log(prodCarrito)
@@ -91,3 +90,4 @@ const setCarrito = (prod) => {
     productosCarrito()
     actualizarTotal()
 }
+

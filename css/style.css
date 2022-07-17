@@ -44,7 +44,8 @@
 
 .precio {
     display: flex;
-    justify-content: start;
+    justify-content: end;
+    width: 40%;
 }
 
 
@@ -60,4 +61,15 @@
     min-width: 178px;
     min-height: 178px;
     object-fit: contain;
+}
+
+.cantidad {
+    width: 20%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.nameCarrito {
+    width: 40%;
+    margin-bottom: 5px;
 }
