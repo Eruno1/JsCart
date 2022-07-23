@@ -67,9 +67,23 @@
     width: 20%;
     display: flex;
     justify-content: flex-end;
+    align-items: center;
 }
 
 .nameCarrito {
     width: 40%;
     margin-bottom: 5px;
+}
+
+.cartDelete {
+    margin: 0px 200px;
+}
+
+.cartMinusButton {
+    width: 25px;
+    height: 25px;
+    margin-left: 10px;
+    display: grid;
+    place-content: center;
+    border-radius: 5px;
 }

@@ -25,9 +25,16 @@
                 <ul class="dropdown-menu cart__input" aria-labelledby="dropdownMenuButton1">
                     <div class="px-2 d-flex justify-content-between align-items-start item"> <div class="nameCarrito">Nombre</div>  <div class="cantidad">Cantidad</div> <div class='precio'>Precio</div></div>
                     <div class='lista-productos' id="listaCarrito">
+                        <!-- <li class="px-2 d-flex justify-content-between align-items-start item" id="listaCarrito">
+                            <div class="nameCarrito">${product.nombre}</div>
+                            <div class="cantidad"> ${product.cantidad}
+                                <button class="btn btn-danger deleteOneProduct">-1</button>
+                            </div> 
+                            <div class='precio'>${product.precioString}</div>
+                        </li> -->
                     </div>
                     <div class="p-2 text-white border-top mt-2 precio-total" id="cartTotal">Total: $0</div>
-                    <button class="btn btn-danger btn-borrar-carrito" id="deleteButton"><i class="fas fa-trash"></i></button>
+                    <button class="btn btn-danger btn-borrar-carrito cartDelete" id="deleteButton"><i class="fas fa-trash"></i></button>
                 </ul>
                 </div>
 
