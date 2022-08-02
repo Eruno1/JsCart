@@ -5,12 +5,15 @@ let totalCarrito = document.getElementById("cartTotal")
 let contenedorProductos = document.getElementById("contenedorProductos")
 let listaCarrito = document.getElementById("listaCarrito")
 console.log(prodCarrito)
+
 productosDisponibles()
 
 
-if (prodCarrito !== null) {
-    actualizarTodo()
-}
+
+prodCarrito !== null && actualizarTodo()
+// if (prodCarrito !== null) {
+//     actualizarTodo()
+// }
 
 function productosDisponibles() {
     let div2 = document.createElement('div')
@@ -86,10 +89,12 @@ const setCarrito = (prod) => {
         prodCarrito.push(productos)
     }
 
-    if (!prodYaEnCarrito) {
-        prodCarrito.push(productos)
-        prodYaEnCarrito = true
-    }
+    !prodYaEnCarrito && prodCarrito.push(productos); prodYaEnCarrito = true
+
+    // if (!prodYaEnCarrito) {
+    //     prodCarrito.push(productos)
+    //     prodYaEnCarrito = true
+    // }
 
     actualizarTodo()
     cartMinusButton = document.querySelectorAll(".cartMinusButton")
@@ -130,3 +135,15 @@ function actualizarTodo() {
     productosCarrito()
     actualizarTotal()
 }
+
+const pagarTotal = (e) => {
+    const buyAllButton = document.getElementById('buyAllButton')
+    if (prodCarrito.length === 0) {
+        Swal.fire('¡No tienes productos agregados en el carrito! Prueba agregando alguno.')
+    } else {
+        window.location.replace("/pages/form.html");
+    }
+}
+
+
+buyAllButton.addEventListener('click', (e) => pagarTotal(e))
