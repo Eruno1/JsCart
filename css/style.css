@@ -1,3 +1,9 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
 .card__border {
     border: 1px solid rgba(61, 61, 61, 0.579);
     padding: 20px;
@@ -75,10 +81,6 @@
     margin-bottom: 5px;
 }
 
-.cartDelete {
-    margin: 0px 200px;
-}
-
 .cartMinusButton {
     width: 25px;
     height: 25px;
@@ -86,4 +88,44 @@
     display: grid;
     place-content: center;
     border-radius: 5px;
+}
+
+.cartButtonsContainer {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin: 10px;
+}
+
+.buyAllButton {
+    text-decoration: none;
+    color: white;
+}
+
+.formwrapper {
+    background-color: rgb(234, 234, 234);
+    width: 100%;
+    height: 100vh;
+    display: grid;
+    place-items: center;
+}
+
+.formwrapper__div {
+    background-color: white;
+    padding: 2rem 0;
+}
+
+.sumbitbtn {
+    margin-top: 2rem;
+    margin-right: 1rem;
+    border: 1px solid #ced4da;
+}
+
+.my-actions { margin: 0 2em; }
+.order-1 { order: 1; }
+.order-2 { order: 2; }
+.order-3 { order: 3; }
+
+.right-gap {
+  margin-right: auto;
 }
