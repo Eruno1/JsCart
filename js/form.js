@@ -28,9 +28,12 @@ botonComprar.addEventListener('click', () => {
     let surename = document.getElementById('apellido').value
     let province = document.getElementById('provincia').value
     let address = document.getElementById('direccionCalle').value
-    let phone = document.getElementById('telefono')
+    let phone = document.getElementById('telefono').value
     console.log(nombre)
-    let datosComprador = {nombre: name, mail: email, apellido: surename, provincia: province, direccion: address, telefono: phone}
+    let fechaDeCompra = new Date().toLocaleDateString('en-GB')
+    let datosComprador = {nombre: name, mail: email, apellido: surename, provincia: province, direccion: address, telefono: phone, fecha: fechaDeCompra}
+
+    window.localStorage.setItem("datos del comprador", JSON.stringify(datosComprador))
 
     Swal.fire({
         title: '¡Gracias por confiar en nosotros!',
@@ -42,6 +45,6 @@ botonComprar.addEventListener('click', () => {
     })
     
     setTimeout(function () {
-        window.location.replace("/index.html");
+        window.location.replace("/pages/invoice.html");
      }, 2000);
 })
