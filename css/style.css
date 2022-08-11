@@ -129,3 +129,35 @@
 .right-gap {
   margin-right: auto;
 }
+
+.forex {
+    border: 1px solid red;
+}
+
+.forexcontainer {
+    margin: 1rem 0;
+}
+
+.forexdiv {
+    margin-left: 1rem;
+    background-color: #ced4da;
+    color: hsl(206, 12%, 12%);
+    border-radius: 10px;
+    overflow: hidden;
+    padding: 10px;
+    font-size: 1rem;
+}
+
+.forexdiv {
+    font-weight: bold;
+}
+
+.forexdiv p {
+    margin-bottom: 0;
+    font-size: 0.75rem;
+}
+
+.forexdiv h6 {
+    margin-bottom: 0;
+    
+}

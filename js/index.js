@@ -4,16 +4,37 @@ let cantCarrito = document.getElementById("cartQty")
 let totalCarrito = document.getElementById("cartTotal")
 let contenedorProductos = document.getElementById("contenedorProductos")
 let listaCarrito = document.getElementById("listaCarrito")
-console.log(prodCarrito)
+let excRate = document.getElementById("forex")
+const conversionButton = document.getElementById("convButton")
 
 productosDisponibles()
 
+const fetchExRate = async () => {
+    
+    try{
+        const datos = await fetch("https://www.dolarsi.com/api/api.php?type=valoresprincipales")
+        const resultados = await datos.json()
+        return Number(resultados[1].casa.venta.replace(",",".")) 
+    }
+    catch (error) {
+        console.log(error)
+    }
+}
 
+
+
+const actualizarArrayUSD = async () => {
+    const cotizacionAlgo = await fetchExRate()
+
+    productos.forEach(el => {
+        el.precioUSD = (el.precio/cotizacionAlgo).toFixed(2)
+    })
+}
+
+actualizarArrayUSD()
 
 prodCarrito !== null && actualizarTodo()
-// if (prodCarrito !== null) {
-//     actualizarTodo()
-// }
+
 
 function productosDisponibles() {
     let div2 = document.createElement('div')
@@ -26,7 +47,7 @@ function productosDisponibles() {
                         </div>    
                         <div class="card-body ">
                             <h5 class="card-title text-center">${prod.nombre}</h5>
-                            <p class="card-text text-center">$${prod.precioString}</p>
+                            <p class="card-text text-center" id="pprecio">$${prod.precio}</p>
                             <button class="btn btn-primary btn-comprar" id="buyButton">Comprar</button>
                         </div>`
                         
@@ -91,11 +112,6 @@ const setCarrito = (prod) => {
 
     !prodYaEnCarrito && prodCarrito.push(productos); prodYaEnCarrito = true
 
-    // if (!prodYaEnCarrito) {
-    //     prodCarrito.push(productos)
-    //     prodYaEnCarrito = true
-    // }
-
     actualizarTodo()
     cartMinusButton = document.querySelectorAll(".cartMinusButton")
     
@@ -147,3 +163,33 @@ const pagarTotal = (e) => {
 
 
 buyAllButton.addEventListener('click', (e) => pagarTotal(e))
+
+const actualizarCotizacion = async () => {
+    const cotizacionDolarVenta = await fetchExRate()
+            excRate.innerHTML =""
+            excRate.innerHTML += `
+            <div class="forexdiv">
+                <h6>Dolar Blue: </h6> 
+                <p>Venta: ${cotizacionDolarVenta}</p> 
+            </div>
+                `
+    
+}
+    
+actualizarCotizacion()
+
+const pricesToDolar = () => {
+    const parrafoPrecio = document.querySelectorAll("#pprecio")
+    productos.forEach((el, i) => {
+        if(el.currency === "ARS") {
+            el.currency = "USD"
+            parrafoPrecio[i].innerHTML = `USD ${el.precioUSD}`
+        } else if(el.currency === "USD") {
+            el.currency = "ARS"
+            parrafoPrecio[i].innerHTML = `$${el.precio}`
+
+        }
+    })
+}
+
+conversionButton.addEventListener("click", (e) => pricesToDolar())
