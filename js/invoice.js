@@ -1,9 +1,15 @@
 let datosComprador = JSON.parse(window.localStorage.getItem("datos del comprador"))
 let productosCompra = JSON.parse(window.localStorage.getItem("productos en carrito"))
-console.log(datosComprador)
-console.log(productosCompra)
+
+const TC = async () => {
+    const disclaimer = document.getElementById("exchangeRate")
+    const excRate = await fetchExRate()
+
+    disclaimer.innerHTML = `A efectos del cálculo, el TC asciende a ${excRate}`
+} 
 
 const popularFactura = () => {
+
     document.body.innerHTML = `<div>
     <table class="body-wrap">
         <tbody>
@@ -61,6 +67,9 @@ const popularFactura = () => {
                                 <tr>
                                     <td class="aligncenter content-block">Preguntas? Email <a href="mailto:">mitienda@company.com</a></td>
                                 </tr>
+                                <tr>
+                                    <td class="aligncenter" id="exchangeRate">A efectos del cálculo, el TC asciende a </td>
+                                </tr>
                             </table>
                         </div></div>
                 </td>
@@ -82,7 +91,6 @@ const modificarDatos = () => {
 
     nombre.innerHTML = `${datosComprador.nombre} ${datosComprador.apellido}`
     fecha.innerHTML = datosComprador.fecha
-    console.log(productosCompra)
 
     productosCompra.forEach(el => {
         let newTR = document.createElement("tr")
@@ -104,7 +112,6 @@ const modificarDatos = () => {
         newTR.appendChild(firstTD)
         newTR.appendChild(secondTD)
         newTR.appendChild(thirdTD)
-        console.log(thirdTD)
     })
     let totalRow = document.createElement("tr")
     totalRow.classList = "total"
@@ -117,9 +124,8 @@ const modificarDatos = () => {
 }
 
 popularFactura()
-
 modificarDatos()
-
+TC()
 
 const borrarLocalStorage = () => {
     window.localStorage.clear()

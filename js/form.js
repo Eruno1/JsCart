@@ -14,11 +14,7 @@ botonAtras.addEventListener('click', () => {
           denyButton: 'order-2',
         }
       }).then((result) => {
-        result.isConfirmed && window.location.replace("/index.html")
-        // if (result.isConfirmed) {
-        //     window.location.replace("/index.html");
-        // }
-        
+        result.isConfirmed && window.location.replace("/index.html")        
       })
 })
 
@@ -35,16 +31,22 @@ botonComprar.addEventListener('click', () => {
 
     window.localStorage.setItem("datos del comprador", JSON.stringify(datosComprador))
 
-    Swal.fire({
-        title: '¡Gracias por confiar en nosotros!',
-        position: 'center',
-        icon: 'success',
-        showConfirmButton: false,
-        timer: 1500,
-        heightAuto: false
-    })
-    
-    setTimeout(function () {
-        window.location.replace("/pages/invoice.html");
-     }, 2000);
+    if (name === "" || email === "" || surename === "" || address === "" || phone === "") {
+      Swal.fire('Por favor, complete sus datos correctamente')
+    } else {
+      Swal.fire({
+          title: '¡Gracias por confiar en nosotros!',
+          position: 'center',
+          icon: 'success',
+          showConfirmButton: false,
+          timer: 1500,
+          heightAuto: false
+      })
+      
+      setTimeout(function () {
+          window.location.replace("/pages/invoice.html");
+       }, 2000);
+
+    }
+
 })
