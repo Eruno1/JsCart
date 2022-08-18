@@ -10,37 +10,17 @@ let listaCarrito = document.getElementById("listaCarrito");
 let excRate = document.getElementById("forex");
 const conversionButton = document.getElementById("convButton");
 
-productosDisponibles();
-
-const fetchExRate = async () => {
-  try {
-    const datos = await fetch(
-      "https://www.dolarsi.com/api/api.php?type=valoresprincipales"
-    );
-    const resultados = await datos.json();
-    return Number(resultados[1].casa.venta.replace(",", "."));
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-const actualizarArrayUSD = async () => {
-  const cotizacionAlgo = await fetchExRate();
-
-  productos.forEach((el) => {
-    el.precioUSD = Number((el.precio / cotizacionAlgo).toFixed(2));
-  });
-};
+obtenerProductosDisponibles();
 
 actualizarArrayUSD();
 
 prodCarrito !== null && actualizarTodo();
 
-function productosDisponibles() {
+function obtenerProductosDisponibles() {
   let div2 = document.createElement("div");
   div2.className = "row d-flex justify-content-center";
   productos.forEach((prod) => {
-    let precioProductoFormato = prod.precio
+    let formatearPrecio = prod.precio
       .toString()
       .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     let div = document.createElement("div");
@@ -50,7 +30,7 @@ function productosDisponibles() {
                         </div>    
                         <div class="card-body ">
                             <h5 class="card-title text-center">${prod.nombre}</h5>
-                            <p class="card-text text-center" id="pprecio">$${precioProductoFormato}</p>
+                            <p class="card-text text-center" id="precioIndividualCarrito">$${formatearPrecio}</p>
                             <button class="btn btn-primary btn-comprar" id="buyButton">Agregar al carrito</button>
                         </div>`;
 
@@ -124,7 +104,6 @@ function productosCarrito() {
   });
 }
 const setCarrito = (prod) => {
-  // const exchRate = await fetchExRate();
   const nombre = prod.querySelector("h5").textContent;
   const nuevoProducto = productos.find(
     (producto) => producto.nombre === nombre
@@ -216,11 +195,10 @@ const actualizarCotizacion = async () => {
 actualizarCotizacion();
 
 const pricesToDolar = () => {
-  // const cotizacionDolarVenta = await fetchExRate();
-  const parrafoPrecio = document.querySelectorAll("#pprecio");
+  const parrafoPrecio = document.querySelectorAll("#precioIndividualCarrito");
   console.log(parrafoPrecio);
   productos.forEach((el, i) => {
-    let precioProductoFormato = el.precio
+    let formatearPrecio = el.precio
       .toString()
       .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     if (el.currency === "ARS") {
@@ -229,7 +207,7 @@ const pricesToDolar = () => {
       console.log("entre en el if de ===ARS");
     } else {
       el.currency = "ARS";
-      parrafoPrecio[i].innerHTML = `$${precioProductoFormato}`;
+      parrafoPrecio[i].innerHTML = `$${formatearPrecio}`;
       console.log("entre en el if de ===USD");
     }
   });
@@ -237,7 +215,7 @@ const pricesToDolar = () => {
   const precioItemCarrito = document.querySelectorAll("#precioItemCarrito");
 
   prodCarrito.forEach((prod, i) => {
-    let precioProductoFormato = (prod.precio * prod.cantidad)
+    let formatearPrecio = (prod.precio * prod.cantidad)
       .toString()
       .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     if (prod.currency === "ARS") {
@@ -245,7 +223,7 @@ const pricesToDolar = () => {
       precioItemCarrito[i].innerHTML = `U$ ${prod.precioUSD * prod.cantidad}`;
     } else {
       prod.currency = "ARS";
-      precioItemCarrito[i].innerHTML = `$${precioProductoFormato}`;
+      precioItemCarrito[i].innerHTML = `$${formatearPrecio}`;
     }
   });
 
