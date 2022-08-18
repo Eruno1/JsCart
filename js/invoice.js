@@ -1,16 +1,19 @@
-let datosComprador = JSON.parse(window.localStorage.getItem("datos del comprador"))
-let productosCompra = JSON.parse(window.localStorage.getItem("productos en carrito"))
+let datosComprador = JSON.parse(
+  window.localStorage.getItem("datos del comprador")
+);
+let productosCompra = JSON.parse(
+  window.localStorage.getItem("productos en carrito")
+);
 
 const TC = async () => {
-    const disclaimer = document.getElementById("exchangeRate")
-    const excRate = await fetchExRate()
+  const disclaimer = document.getElementById("exchangeRate");
+  const excRate = await fetchExRate();
 
-    disclaimer.innerHTML = `A efectos del cálculo, el TC asciende a ${excRate}`
-} 
+  disclaimer.innerHTML = `A efectos del cálculo, el TC asciende a $${excRate}`;
+};
 
 const popularFactura = () => {
-
-    document.body.innerHTML = `<div>
+  document.body.innerHTML = `<div>
     <table class="body-wrap">
         <tbody>
             <tr>
@@ -77,64 +80,63 @@ const popularFactura = () => {
             </tr>
         </tbody>
     </table>
-</div>`
-}
-
+</div>`;
+};
 
 const modificarDatos = () => {
-    let nombre = document.getElementById("nombre")
-    let fecha = document.getElementById("fecha")
-    let montoTotal = document.getElementById("total")
-    let listaProductos = document.getElementById("listaProductos")
-    let totalToString = productosCompra.reduce((acc, el) => acc + el.precio * el.cantidad, 0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-    let totalCantidad = productosCompra.reduce((acc, el) => acc + el.cantidad, 0)
+  let nombre = document.getElementById("nombre");
+  let fecha = document.getElementById("fecha");
+  let montoTotal = document.getElementById("total");
+  let listaProductos = document.getElementById("listaProductos");
+  let totalToString = productosCompra
+    .reduce((acc, el) => acc + el.precio * el.cantidad, 0)
+    .toString()
+    .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  let totalCantidad = productosCompra.reduce((acc, el) => acc + el.cantidad, 0);
 
-    nombre.innerHTML = `${datosComprador.nombre} ${datosComprador.apellido}`
-    fecha.innerHTML = datosComprador.fecha
+  nombre.innerHTML = `${datosComprador.nombre} ${datosComprador.apellido}`;
+  fecha.innerHTML = datosComprador.fecha;
 
-    productosCompra.forEach(el => {
-        let newTR = document.createElement("tr")
-        let firstTD = document.createElement("td")
-        let secondTD = document.createElement("td")
-        let thirdTD = document.createElement("td")
-        let totalPorProducto = el.precio * el.cantidad
-        let precioToString = totalPorProducto.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-        
-        thirdTD.classList = "alignright"
-        
-        
-        
-        firstTD.innerHTML = el.nombre
-        secondTD.innerText = el.cantidad
-        thirdTD.innerText = `$ ${precioToString}`
-        
-        listaProductos.appendChild(newTR)
-        newTR.appendChild(firstTD)
-        newTR.appendChild(secondTD)
-        newTR.appendChild(thirdTD)
-    })
-    let totalRow = document.createElement("tr")
-    totalRow.classList = "total"
-    totalRow.innerHTML = `  <td>Total</td>
+  productosCompra.forEach((el) => {
+    let newTR = document.createElement("tr");
+    let firstTD = document.createElement("td");
+    let secondTD = document.createElement("td");
+    let thirdTD = document.createElement("td");
+    let totalPorProducto = el.precio * el.cantidad;
+    let precioToString = totalPorProducto
+      .toString()
+      .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
+    thirdTD.classList = "alignright";
+
+    firstTD.innerHTML = el.nombre;
+    secondTD.innerText = el.cantidad;
+    thirdTD.innerText = `$ ${precioToString}`;
+
+    listaProductos.appendChild(newTR);
+    newTR.appendChild(firstTD);
+    newTR.appendChild(secondTD);
+    newTR.appendChild(thirdTD);
+  });
+  let totalRow = document.createElement("tr");
+  totalRow.classList = "total";
+  totalRow.innerHTML = `  <td>Total</td>
                             <td>${totalCantidad}</td>
-                            <td class="alignright" id="total">$ ${totalToString}</td>`
-    listaProductos.appendChild(totalRow)
+                            <td class="alignright" id="total">$ ${totalToString}</td>`;
+  listaProductos.appendChild(totalRow);
+};
 
-    
-}
-
-popularFactura()
-modificarDatos()
-TC()
+popularFactura();
+modificarDatos();
+TC();
 
 const borrarLocalStorage = () => {
-    window.localStorage.clear()
-}
+  window.localStorage.clear();
+};
 
-
-let volverInicio = document.getElementById('linkVolverInicio')
+let volverInicio = document.getElementById("linkVolverInicio");
 
 volverInicio.addEventListener("click", () => {
-    borrarLocalStorage()
-    window.location.replace("/index.html")
-})
+  borrarLocalStorage();
+  window.location.replace("/index.html");
+});

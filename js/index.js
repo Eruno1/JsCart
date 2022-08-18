@@ -51,7 +51,7 @@ function productosDisponibles() {
                         <div class="card-body ">
                             <h5 class="card-title text-center">${prod.nombre}</h5>
                             <p class="card-text text-center" id="pprecio">$${precioProductoFormato}</p>
-                            <button class="btn btn-primary btn-comprar" id="buyButton">Comprar</button>
+                            <button class="btn btn-primary btn-comprar" id="buyButton">Agregar al carrito</button>
                         </div>`;
 
     div2.append(div);
@@ -66,7 +66,7 @@ function actualizarTotal() {
       .toFixed(2)
       .toString()
       .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-    totalCarrito.textContent = `Total: $${totalUSD}`;
+    totalCarrito.textContent = `Total: U$${totalUSD}`;
   } else {
     let totalARS = prodCarrito
       .reduce((acc, el) => acc + el.precio * el.cantidad, 0)
@@ -106,12 +106,20 @@ function productosCarrito() {
       product.currency === "USD"
         ? product.cantidad * product.precioUSD
         : product.cantidad * product.precio;
-    let precioFormato = precioPorCantidad
-      .toFixed(2)
-      .toString()
-      .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    let precioFormato;
+    if (product.currency === "ARS") {
+      precioFormato = `$${precioPorCantidad
+        .toFixed(2)
+        .toString()
+        .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`;
+    } else {
+      precioFormato = `U$${precioPorCantidad
+        .toFixed(2)
+        .toString()
+        .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`;
+    }
     let contenido = document.createElement("div");
-    contenido.innerHTML = `<li class="px-2 d-flex justify-content-between align-items-start item" id="listaCarrito"><div class="nameCarrito">${product.nombre}</div> <div class="cantidad">${product.cantidad}<button class="btn btn-danger cartMinusButton">-</button></div> <div class='precio' id='precioItemCarrito'>$${precioFormato}</div></li>`;
+    contenido.innerHTML = `<li class="px-2 d-flex justify-content-between align-items-start item" id="listaCarrito"><div class="nameCarrito">${product.nombre}</div> <div class="cantidad">${product.cantidad}<button class="btn btn-danger cartMinusButton">-</button></div> <div class='precio' id='precioItemCarrito'>${precioFormato}</div></li>`;
     listaCarrito.append(contenido);
   });
 }
@@ -136,10 +144,10 @@ const setCarrito = (prod) => {
       prodYaEnCarrito = false;
     }
   } else {
-    prodCarrito.push(nuevoProducto);
+    prodCarrito.push({ ...nuevoProducto });
   }
 
-  !prodYaEnCarrito && prodCarrito.push(nuevoProducto);
+  !prodYaEnCarrito && prodCarrito.push({ ...nuevoProducto });
   prodYaEnCarrito = true;
 
   actualizarTodo();
